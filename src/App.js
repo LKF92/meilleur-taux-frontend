@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Step1 from "./components/Step1";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path="/demande-simulation/credit-immobilier/step1">
+          <Step1 />
+        </Route>
+
+        {/* <Route path="/demande-simulation/credit-immobilier/step2">
+          <Step2 />
+        </Route>
+        <Route path="/demande-simulation/credit-immobilier/step3">
+          <Step3 />
+        </Route>
+        <Route path="/demande-simulation/credit-immobilier/step4">
+          <Step4 />
+        </Route>
+        <Route path="/demande-simulation/credit-immobilier/step5">
+          <Step5 />
+        </Route>
+        <Route path="/demande-simulation/credit-immobilier/step6">
+          <Step6 />
+        </Route> */}
+      </Switch>
+    </Router>
   );
 }
 
