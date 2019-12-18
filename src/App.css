@@ -17,6 +17,7 @@ nav p {
 /********** PAGES **********/
 .container {
   padding: 0 30px;
+  height: 30vh;
 }
 .page-title {
   font-weight: bold;
@@ -24,9 +25,69 @@ nav p {
 }
 .choices {
   display: flex;
+  margin: 50px 0;
   width: 100%;
   flex-flow: row nowrap;
   justify-content: space-between;
 }
 
-/********** BOX **********/
+.form-section {
+  margin: 50px 0;
+  width: 100%;
+}
+.first-input {
+  background-color: var(--grey);
+}
+.form-section label {
+  padding: 0 30px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  width: 100%;
+  padding-right: 250px;
+  box-sizing: border-box;
+}
+.input-title {
+  width: 40%;
+  margin-right: 50px;
+}
+select {
+  height: 40px;
+  width: 40%;
+  font-size: 16px;
+  font-weight: 700;
+  border: 1px solid var(--orange);
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 3px 0px #e57f00;
+}
+.form-section input {
+  text-indent: 10px;
+}
+p.form-info {
+  width: 100%;
+  padding: 0 30px;
+  font-weight: bold;
+}
+.input-with-autocomplete {
+  position: relative;
+}
+.vicopo {
+  position: absolute;
+  top: 50px;
+  left: 530px;
+  padding: 10px 20px;
+  border: 1px solid var(--lightgrey);
+  background-color: white;
+  max-height: 30vh;
+  overflow: scroll;
+}
+.vicopo-choice {
+  cursor: pointer;
+  color: var(--dark-grey);
+}
+.vicopo-choice:hover {
+  color: black;
+}
