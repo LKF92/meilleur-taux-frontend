@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import colors from "../colors";
 
-export default function PageNavigation({ currentPage, setCurrentPage }) {
+export default function PageNavigation({ currentPage, setCurrentPage, next }) {
   console.log("PAGE : ", currentPage);
 
   return (
@@ -21,18 +21,38 @@ export default function PageNavigation({ currentPage, setCurrentPage }) {
         <div></div>
       )}
       <div>barre de progression</div>
-      {currentPage < 7 ? (
+      {currentPage < 7 && (
         <Link
           to={"/demande-simulation/credit-immobilier/step" + (currentPage + 1)}
-          style={{ textDecoration: "none" }}
-          onClick={() => {
-            setCurrentPage(currentPage + 1);
+          style={next() ? link : notAllowed}
+          onClick={e => {
+            if (next()) {
+              setCurrentPage(currentPage + 1);
+            } else {
+              alert("vous devez renseigner les champs obligatoires");
+              e.preventDefault();
+            }
           }}
         >
           <h3 style={nextPage}>Suivant</h3>
         </Link>
-      ) : (
-        <button value="valider"></button>
+      )}
+
+      {currentPage > 6 && (
+        <Link
+          to={"/demande-simulation/credit-immobilier/step" + (currentPage + 1)}
+          style={next() ? link : notAllowed}
+          onClick={e => {
+            if (next()) {
+              setCurrentPage(currentPage + 1);
+            } else {
+              alert("vous devez accepter les CGV");
+              e.preventDefault();
+            }
+          }}
+        >
+          <h3 style={nextPage}>Valider</h3>
+        </Link>
       )}
     </div>
   );
@@ -52,4 +72,12 @@ const nextPage = {
   borderRadius: 5,
   backgroundColor: colors.orange,
   color: "white"
+};
+const link = {
+  textDecoration: "none"
+};
+
+const notAllowed = {
+  textDecoration: "none",
+  cursor: "not-allowed"
 };

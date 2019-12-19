@@ -3,11 +3,8 @@ import InfoIcon from "./InfoIcon";
 import SelectionBox from "./SelectionBox";
 import PageNavigation from "./PageNavigation";
 
-export default function Step1({ globalState, setGlobalState, currentPage, setCurrentPage }) {
-  const initialState = globalState.typeOfProperty;
-  const [typeOfProperty, setTypeOfProperty] = useState(initialState);
-
-  console.log("STEP1 : typeOfProperty ==> ", typeOfProperty);
+export default function Step1({ globalState, setGlobalState, setCurrentPage }) {
+  const [typeOfProperty, setTypeOfProperty] = useState(globalState.typeOfProperty);
 
   // We add the choice of the user to the global state
   useEffect(() => {
@@ -16,7 +13,9 @@ export default function Step1({ globalState, setGlobalState, currentPage, setCur
     setGlobalState(copy);
   }, [typeOfProperty, setTypeOfProperty]);
 
-  // Force another render of the component when the global state change
+  // Force a render of the component when the global state change (to get the inputs preselected).
+  // With functional component, it doesn't create an infinite loop of render between globalState and typeOfProperty
+  // since react doesn't render the component when 'changing' a state for its current value
   useEffect(() => {
     console.log("SHOULD RERENDER FOR FINAL state");
     setTypeOfProperty(globalState.typeOfProperty);
@@ -35,7 +34,11 @@ export default function Step1({ globalState, setGlobalState, currentPage, setCur
           selection={typeOfProperty}
         />
       </div>
-      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <PageNavigation
+        currentPage={1}
+        setCurrentPage={setCurrentPage}
+        next={() => (typeOfProperty ? true : false)}
+      />
     </div>
   );
 }

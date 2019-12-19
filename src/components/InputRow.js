@@ -1,13 +1,18 @@
 import React from "react";
 import InfoIcon from "./InfoIcon";
 
-export default function InputRow({ text, value, setValue, style, after }) {
+export default function InputRow({ text, value, setValue, readOnly, style, after }) {
   return (
     <label style={(inputRowLabel, style)}>
       <p style={inputTitle}>{text}</p>
       <div style={blocInput}>
         <InfoIcon />
-        <input style={inputs} value={value} onChange={e => setValue(e.target.value)}></input>
+        <input
+          style={inputs}
+          value={value}
+          readOnly={readOnly ? true : false}
+          onChange={e => setValue(e.target.value)}
+        ></input>
         {after}
       </div>
     </label>

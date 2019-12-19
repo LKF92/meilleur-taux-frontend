@@ -2,20 +2,19 @@ import React, { useState, useEffect } from "react";
 import InfoIcon from "./InfoIcon";
 import SelectionBox from "./SelectionBox";
 import PageNavigation from "./PageNavigation";
-import Cookies from "js-cookie";
 
-export default function Step3({ globalState, setGlobalState, currentPage, setCurrentPage }) {
-  const [useOfProperty, setUseOfProperty] = useState(
-    globalState.useOfProperty ? globalState.useOfProperty : ""
-  );
-
-  console.log("STEP3 : useOfProperty ==> ", useOfProperty);
+export default function Step3({ globalState, setGlobalState, setCurrentPage }) {
+  const [useOfProperty, setUseOfProperty] = useState(globalState.useOfProperty);
 
   useEffect(() => {
     let copy = { ...globalState };
     copy.useOfProperty = useOfProperty;
     setGlobalState(copy);
   }, [useOfProperty]);
+
+  useEffect(() => {
+    setUseOfProperty(globalState.useOfProperty);
+  }, [globalState]);
 
   return (
     <div className="container">
@@ -39,7 +38,11 @@ export default function Step3({ globalState, setGlobalState, currentPage, setCur
           selection={useOfProperty}
         />
       </div>
-      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <PageNavigation
+        currentPage={3}
+        setCurrentPage={setCurrentPage}
+        next={() => (useOfProperty ? true : false)}
+      />
     </div>
   );
 }

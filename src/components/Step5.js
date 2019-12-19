@@ -14,10 +14,14 @@ const countriesList = [
   "UK"
 ];
 
-export default function Step5({ globalState, setGlobalState, currentPage, setCurrentPage }) {
-  const [country, setCountry] = useState("");
+export default function Step5({ globalState, setGlobalState, setCurrentPage }) {
+  const [country, setCountry] = useState(
+    globalState.locationOfProperty ? globalState.locationOfProperty.country : ""
+  );
+  const [city, setCity] = useState(
+    globalState.locationOfProperty ? globalState.locationOfProperty.city : ""
+  );
   const [data, setData] = useState("");
-  const [city, setCity] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -33,6 +37,13 @@ export default function Step5({ globalState, setGlobalState, currentPage, setCur
     copy.locationOfProperty = { country: country, city: city };
     setGlobalState(copy);
   }, [country, city]);
+
+  useEffect(() => {
+    if (globalState.locationOfProperty) {
+      setCity(globalState.locationOfProperty.city);
+      setCountry(globalState.locationOfProperty.country);
+    }
+  }, [globalState]);
 
   return (
     <div className="container">
@@ -75,7 +86,11 @@ export default function Step5({ globalState, setGlobalState, currentPage, setCur
           sur plusieurs communes, indiquez une commune ciblée.
         </p>
       </div>
-      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <PageNavigation
+        currentPage={5}
+        setCurrentPage={setCurrentPage}
+        next={() => (country && city ? true : false)}
+      />
     </div>
   );
 }

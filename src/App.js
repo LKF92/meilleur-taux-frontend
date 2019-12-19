@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Cookies from "js-cookie";
 import Navbar from "./components/Navbar";
@@ -9,6 +9,7 @@ import Step3 from "./components/Step3";
 import Step4 from "./components/Step4";
 import Step5 from "./components/Step5";
 import Step6 from "./components/Step6";
+import Step7 from "./components/Step7";
 
 function App() {
   const [globalState, setGlobalState] = useState({});
@@ -37,7 +38,6 @@ function App() {
   // We save the global state in the cookies everytimes it is modified
   useEffect(() => {
     console.log("GLOBAL STATE from App.js =====>", globalState);
-
     console.log("saving change in cookies (wether form inputs or page numbers");
     Cookies.set("visitorCookie", { lastPage: currentPage, globalState: globalState });
   }, [globalState, currentPage]);
@@ -46,11 +46,17 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
+        <Route exact path="/">
+          <Step1
+            globalState={globalState}
+            setGlobalState={setGlobalState}
+            setCurrentPage={setCurrentPage}
+          />
+        </Route>
         <Route path="/demande-simulation/credit-immobilier/step2">
           <Step2
             globalState={globalState}
             setGlobalState={setGlobalState}
-            currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
         </Route>
@@ -58,7 +64,6 @@ function App() {
           <Step3
             globalState={globalState}
             setGlobalState={setGlobalState}
-            currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
         </Route>
@@ -66,7 +71,6 @@ function App() {
           <Step4
             globalState={globalState}
             setGlobalState={setGlobalState}
-            currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
         </Route>
@@ -74,7 +78,6 @@ function App() {
           <Step5
             globalState={globalState}
             setGlobalState={setGlobalState}
-            currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
         </Route>
@@ -82,18 +85,17 @@ function App() {
           <Step6
             globalState={globalState}
             setGlobalState={setGlobalState}
-            currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
         </Route>
-        <Route path="/">
-          <Step1
+        <Route path="/demande-simulation/credit-immobilier/step7">
+          <Step7
             globalState={globalState}
             setGlobalState={setGlobalState}
-            currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
         </Route>
+        <Redirect to="/" />
       </Switch>
     </Router>
   );

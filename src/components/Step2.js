@@ -3,13 +3,8 @@ import InfoIcon from "./InfoIcon";
 import SelectionBox from "./SelectionBox";
 import PageNavigation from "./PageNavigation";
 
-export default function Step2({ globalState, setGlobalState, currentPage, setCurrentPage }) {
-  const [conditionOfProperty, setConditionOfProperty] = useState(
-    globalState.conditionOfProperty ? globalState.conditionOfProperty : ""
-  );
-
-  console.log("STEP2 : conditionOfProperty ==> ", conditionOfProperty);
-  console.log("STEP2 : GLOBALSTATE.conditionOfProperty ==> ", globalState.conditionOfProperty);
+export default function Step2({ globalState, setGlobalState, setCurrentPage }) {
+  const [conditionOfProperty, setConditionOfProperty] = useState(globalState.conditionOfProperty);
   // Force another render of the component when the global state change
   useEffect(() => {
     setConditionOfProperty(globalState.conditionOfProperty);
@@ -38,7 +33,11 @@ export default function Step2({ globalState, setGlobalState, currentPage, setCur
           selection={conditionOfProperty}
         />
       </div>
-      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <PageNavigation
+        currentPage={2}
+        setCurrentPage={setCurrentPage}
+        next={() => (conditionOfProperty ? true : false)}
+      />
     </div>
   );
 }
