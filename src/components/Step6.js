@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import InputRow from "./InputRow";
 import colors from "../colors";
 import PageNavigation from "./PageNavigation";
+import Cookies from "js-cookie";
 
-export default function Step6({ currentPage, setCurrentPage }) {
+export default function Step6({ globalState, setGlobalState, currentPage, setCurrentPage }) {
+  const visitorCookie = Cookies.getJSON("visitorCookie");
   const [valueOfProperty, setValueOfProperty] = useState(0);
   const [costOfRenovation, setCostOfRenovation] = useState(0);
   const [notaryFees, setNotaryFees] = useState(0);
@@ -39,7 +41,24 @@ export default function Step6({ currentPage, setCurrentPage }) {
           after="€"
         />
       </div>
-      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <PageNavigation
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        setGlobalState={() => {
+          let copy = { ...globalState };
+          copy.estimatedValueOfProject = {
+            valueOfProperty: valueOfProperty,
+            costOfRenovation: costOfRenovation,
+            notaryFees: notaryFees,
+            totalBudget: totalBudget
+          };
+          setGlobalState(copy);
+        }}
+        setCookies={() =>
+          Cookies.set("visitorCookie", { lastPage: currentPage, globalState: globalState })
+        }
+      />
+      />
     </div>
   );
 }

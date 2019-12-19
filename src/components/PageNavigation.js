@@ -2,14 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import colors from "../colors";
 
-export default function PageNavigation({ currentPage, setCurrentPage }) {
+export default function PageNavigation({
+  currentPage,
+  setCurrentPage,
+  setCookies,
+  setGlobalState
+}) {
+  console.log(currentPage);
   return (
     <div style={pageNavigation}>
       {currentPage > 1 ? (
         <Link
           to={"/demande-simulation/credit-immobilier/step" + (currentPage - 1)}
           style={{ textDecoration: "none" }}
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => {
+            setCurrentPage(currentPage - 1);
+            setGlobalState();
+            setCookies();
+          }}
         >
           <h3 style={previousPage}>Précédent</h3>
         </Link>
@@ -21,7 +31,11 @@ export default function PageNavigation({ currentPage, setCurrentPage }) {
         <Link
           to={"/demande-simulation/credit-immobilier/step" + (currentPage + 1)}
           style={{ textDecoration: "none" }}
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={() => {
+            setCurrentPage(currentPage + 1);
+            setGlobalState();
+            setCookies();
+          }}
         >
           <h3 style={nextPage}>Suivant</h3>
         </Link>
