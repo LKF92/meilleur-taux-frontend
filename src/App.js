@@ -24,25 +24,28 @@ function App() {
           globalState: globalState
         });
       } else {
-        console.log("found a cookie from you :", Cookies.getJSON(visitorCookie.globalState));
-        setGlobalState(Cookies.getJSON(visitorCookie.globalState));
+        console.log("found a cookie from you :", Cookies.get("visitorCookie"));
+        let visitorCookie = Cookies.getJSON("visitorCookie");
+        setGlobalState({ ...visitorCookie.globalState });
+        console.log("last page from cookies", visitorCookie.lastPage);
+        setCurrentPage(visitorCookie.lastPage);
       }
     };
     checkCookies();
   }, []);
 
+  // We save the global state in the cookies everytimes it is modified
+  useEffect(() => {
+    console.log("GLOBAL STATE from App.js =====>", globalState);
+
+    console.log("saving change in cookies (wether form inputs or page numbers");
+    Cookies.set("visitorCookie", { lastPage: currentPage, globalState: globalState });
+  }, [globalState, currentPage]);
+
   return (
     <Router>
       <Navbar />
       <Switch>
-        <Route path="/demande-simulation/credit-immobilier/step1">
-          <Step1
-            globalState={globalState}
-            setGlobalState={setGlobalState}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </Route>
         <Route path="/demande-simulation/credit-immobilier/step2">
           <Step2
             globalState={globalState}
@@ -77,6 +80,14 @@ function App() {
         </Route>
         <Route path="/demande-simulation/credit-immobilier/step6">
           <Step6
+            globalState={globalState}
+            setGlobalState={setGlobalState}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </Route>
+        <Route path="/">
+          <Step1
             globalState={globalState}
             setGlobalState={setGlobalState}
             currentPage={currentPage}

@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputRow from "./InputRow";
 import colors from "../colors";
 import PageNavigation from "./PageNavigation";
 import Cookies from "js-cookie";
 
 export default function Step6({ globalState, setGlobalState, currentPage, setCurrentPage }) {
-  const visitorCookie = Cookies.getJSON("visitorCookie");
   const [valueOfProperty, setValueOfProperty] = useState(0);
   const [costOfRenovation, setCostOfRenovation] = useState(0);
   const [notaryFees, setNotaryFees] = useState(0);
   const [totalBudget, setTotalBudget] = useState(0);
+
+  useEffect(() => {
+    let copy = { ...globalState };
+    copy.estimatedValueOfProject = {
+      valueOfProperty: valueOfProperty,
+      costOfRenovation: costOfRenovation,
+      notaryFees: notaryFees,
+      totalBudget: totalBudget
+    };
+    setGlobalState(copy);
+  }, [valueOfProperty, costOfRenovation, notaryFees, totalBudget]);
+
   return (
     <div className="container">
       <h1 className="page-title">DÉFINISSONS LE MONTANT DE VOTRE PROJET</h1>
@@ -41,23 +52,7 @@ export default function Step6({ globalState, setGlobalState, currentPage, setCur
           after="€"
         />
       </div>
-      <PageNavigation
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        setGlobalState={() => {
-          let copy = { ...globalState };
-          copy.estimatedValueOfProject = {
-            valueOfProperty: valueOfProperty,
-            costOfRenovation: costOfRenovation,
-            notaryFees: notaryFees,
-            totalBudget: totalBudget
-          };
-          setGlobalState(copy);
-        }}
-        setCookies={() =>
-          Cookies.set("visitorCookie", { lastPage: currentPage, globalState: globalState })
-        }
-      />
+      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
       />
     </div>
   );

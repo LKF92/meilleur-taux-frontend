@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InfoIcon from "./InfoIcon";
 import SelectionBox from "./SelectionBox";
 import PageNavigation from "./PageNavigation";
-import Cookies from "js-cookie";
 
 export default function Step4({ globalState, setGlobalState, currentPage, setCurrentPage }) {
-  const visitorCookie = Cookies.getJSON("visitorCookie");
-  console.log(visitorCookie);
-  const [currentSituation, setCurrentSituation] = useState("Appartement");
+  const [currentSituation, setCurrentSituation] = useState(
+    globalState.currentSituation ? globalState.currentSituation : ""
+  );
+
+  useEffect(() => {
+    let copy = { ...globalState };
+    copy.currentSituation = currentSituation;
+    setGlobalState(copy);
+  }, [currentSituation]);
+
   return (
     <div className="container">
       <h1 className="page-title">
@@ -35,18 +41,7 @@ export default function Step4({ globalState, setGlobalState, currentPage, setCur
           selection={currentSituation}
         />
       </div>
-      <PageNavigation
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        setGlobalState={() => {
-          let copy = { ...globalState };
-          copy.currentSituation = currentSituation;
-          setGlobalState(copy);
-        }}
-        setCookies={() =>
-          Cookies.set("visitorCookie", { lastPage: currentPage, globalState: globalState })
-        }
-      />
+      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
 }

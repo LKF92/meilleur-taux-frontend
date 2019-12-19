@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InfoIcon from "./InfoIcon";
 import SelectionBox from "./SelectionBox";
 import PageNavigation from "./PageNavigation";
-import Cookies from "js-cookie";
 
 export default function Step1({ globalState, setGlobalState, currentPage, setCurrentPage }) {
-  const [typeOfProperty, setTypeOfProperty] = useState("");
+  const initialState = globalState.typeOfProperty;
+  const [typeOfProperty, setTypeOfProperty] = useState(initialState);
+
+  console.log("STEP1 : typeOfProperty ==> ", typeOfProperty);
+
+  // We add the choice of the user to the global state
+  useEffect(() => {
+    let copy = { ...globalState };
+    copy.typeOfProperty = typeOfProperty;
+    setGlobalState(copy);
+  }, [typeOfProperty, setTypeOfProperty]);
+
+  // Force another render of the component when the global state change
+  useEffect(() => {
+    console.log("SHOULD RERENDER FOR FINAL state");
+    setTypeOfProperty(globalState.typeOfProperty);
+  }, [globalState]);
+
   return (
     <div className="container">
       <h1 className="page-title">
@@ -19,18 +35,7 @@ export default function Step1({ globalState, setGlobalState, currentPage, setCur
           selection={typeOfProperty}
         />
       </div>
-      <PageNavigation
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        setGlobalState={() => {
-          let copy = { ...globalState };
-          copy.typeOfProperty = typeOfProperty;
-          setGlobalState(copy);
-        }}
-        setCookies={() =>
-          Cookies.set("visitorCookie", { lastPage: currentPage, globalState: globalState })
-        }
-      />
+      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
 }

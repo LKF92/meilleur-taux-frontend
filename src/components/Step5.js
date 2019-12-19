@@ -4,13 +4,18 @@ import axios from "axios";
 import colors from "../colors";
 import InputRow from "./InputRow";
 import SelectRow from "./SelectRow";
-import Cookies from "js-cookie";
-const countriesList = ["France", "Italy", "Netherland", "Germany", "Spain", "UK"];
+const countriesList = [
+  "Select a country",
+  "France",
+  "Italy",
+  "Netherland",
+  "Germany",
+  "Spain",
+  "UK"
+];
 
 export default function Step5({ globalState, setGlobalState, currentPage, setCurrentPage }) {
-  const visitorCookie = Cookies.getJSON("visitorCookie");
-  console.log(visitorCookie);
-  const [country, setCountry] = useState("France");
+  const [country, setCountry] = useState("");
   const [data, setData] = useState("");
   const [city, setCity] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -22,6 +27,12 @@ export default function Step5({ globalState, setGlobalState, currentPage, setCur
       setShowModal(true);
     })();
   }, [city]);
+
+  useEffect(() => {
+    let copy = { ...globalState };
+    copy.locationOfProperty = { country: country, city: city };
+    setGlobalState(copy);
+  }, [country, city]);
 
   return (
     <div className="container">
@@ -64,18 +75,7 @@ export default function Step5({ globalState, setGlobalState, currentPage, setCur
           sur plusieurs communes, indiquez une commune ciblée.
         </p>
       </div>
-      <PageNavigation
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        setGlobalState={() => {
-          let copy = { ...globalState };
-          copy.locationOfProperty = { country: country, city: city };
-          setGlobalState(copy);
-        }}
-        setCookies={() =>
-          Cookies.set("visitorCookie", { lastPage: currentPage, globalState: globalState })
-        }
-      />
+      <PageNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
 }

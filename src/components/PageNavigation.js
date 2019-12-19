@@ -2,13 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import colors from "../colors";
 
-export default function PageNavigation({
-  currentPage,
-  setCurrentPage,
-  setCookies,
-  setGlobalState
-}) {
-  console.log(currentPage);
+export default function PageNavigation({ currentPage, setCurrentPage }) {
+  console.log("PAGE : ", currentPage);
+
   return (
     <div style={pageNavigation}>
       {currentPage > 1 ? (
@@ -17,8 +13,6 @@ export default function PageNavigation({
           style={{ textDecoration: "none" }}
           onClick={() => {
             setCurrentPage(currentPage - 1);
-            setGlobalState();
-            setCookies();
           }}
         >
           <h3 style={previousPage}>Précédent</h3>
@@ -33,8 +27,6 @@ export default function PageNavigation({
           style={{ textDecoration: "none" }}
           onClick={() => {
             setCurrentPage(currentPage + 1);
-            setGlobalState();
-            setCookies();
           }}
         >
           <h3 style={nextPage}>Suivant</h3>
