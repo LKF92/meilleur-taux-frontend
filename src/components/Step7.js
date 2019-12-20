@@ -33,14 +33,14 @@ export default function Step6({ globalState, setGlobalState, setCurrentPage }) {
         globalState
       );
       if (response) {
-        console.log(response.data.newEstimate._id);
+        console.log(response.data.newEstimate.orderId);
         setGlobalState({ ...globalState, orderId: response.data.newEstimate.orderId });
         history.push("/demande-simulation/credit-immobilier/confirmation");
       } else {
         alert("pb uesh");
       }
     } catch (error) {
-      alert("coucou");
+      alert("coucou error");
       alert(error.message);
     }
   };

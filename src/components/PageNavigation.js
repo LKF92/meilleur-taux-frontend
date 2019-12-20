@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import colors from "../colors";
+import ProgressBar from "./ProgressBar";
 
 export default function PageNavigation({ currentPage, setCurrentPage, next, validateEstimate }) {
   return (
@@ -18,7 +19,9 @@ export default function PageNavigation({ currentPage, setCurrentPage, next, vali
       ) : (
         <div></div>
       )}
-      <div>barre de progression</div>
+      <div>
+        <ProgressBar percentage={((currentPage / 8) * 100).toFixed(0)} />
+      </div>
       {currentPage < 7 && (
         <Link
           to={"/demande-simulation/credit-immobilier/step" + (currentPage + 1)}
@@ -38,7 +41,6 @@ export default function PageNavigation({ currentPage, setCurrentPage, next, vali
 
       {currentPage > 6 && (
         <h3
-          style={nextPage}
           style={next() ? link : notAllowed}
           onClick={e => {
             if (next()) {
@@ -72,10 +74,19 @@ const nextPage = {
   color: "white"
 };
 const link = {
-  textDecoration: "none"
+  padding: 10,
+  borderRadius: 5,
+  backgroundColor: colors.orange,
+  color: "white",
+  textDecoration: "none",
+  cursor: "pointer"
 };
 
 const notAllowed = {
+  padding: 10,
+  borderRadius: 5,
+  backgroundColor: colors.orange,
+  color: "white",
   textDecoration: "none",
   cursor: "not-allowed"
 };
