@@ -28,12 +28,11 @@ export default function Step6({ globalState, setGlobalState, setCurrentPage }) {
   const validateEstimate = async globalState => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/estimate/new",
-        // "https://meilleur-taux-backend.herokuapp.com/estimate/new",
+        // "http://localhost:3000/estimate/new",
+        "https://meilleur-taux-backend.herokuapp.com/estimate/new",
         globalState
       );
       if (response) {
-        console.log(response.data.newEstimate.orderId);
         setGlobalState({ ...globalState, orderId: response.data.newEstimate.orderId });
         history.push("/demande-simulation/credit-immobilier/confirmation");
       } else {
@@ -70,7 +69,7 @@ export default function Step6({ globalState, setGlobalState, setCurrentPage }) {
               <BoxIcon />
             </span>
           )}
-          J'accèpte de recevoir par email des propositions de MeilleurTaux.com
+          J'accepte de recevoir par email des propositions de MeilleurTaux.com
         </p>
       </div>
       <PageNavigation

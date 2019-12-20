@@ -17,7 +17,6 @@ export default function Step1({ globalState, setGlobalState, setCurrentPage }) {
   // With functional component, it doesn't create an infinite loop of render between globalState and typeOfProperty
   // since react doesn't render the component when 'changing' a state for its current value
   useEffect(() => {
-    console.log("SHOULD RERENDER FOR FINAL state");
     setTypeOfProperty(globalState.typeOfProperty);
   }, [globalState]);
 

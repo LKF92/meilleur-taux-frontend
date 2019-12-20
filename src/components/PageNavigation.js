@@ -6,6 +6,7 @@ import ProgressBar from "./ProgressBar";
 export default function PageNavigation({ currentPage, setCurrentPage, next, validateEstimate }) {
   return (
     <div style={pageNavigation}>
+      {/* // Show the button 'previous page' except fo the first step */}
       {currentPage > 1 ? (
         <Link
           to={"/demande-simulation/credit-immobilier/step" + (currentPage - 1)}
@@ -22,6 +23,7 @@ export default function PageNavigation({ currentPage, setCurrentPage, next, vali
       <div>
         <ProgressBar percentage={((currentPage / 8) * 100).toFixed(0)} />
       </div>
+      {/* // Show the button 'next page' except fo the last step */}
       {currentPage < 7 && (
         <Link
           to={"/demande-simulation/credit-immobilier/step" + (currentPage + 1)}
@@ -40,7 +42,7 @@ export default function PageNavigation({ currentPage, setCurrentPage, next, vali
       )}
 
       {currentPage > 6 && (
-        <h3
+        <div
           style={next() ? link : notAllowed}
           onClick={e => {
             if (next()) {
@@ -51,8 +53,8 @@ export default function PageNavigation({ currentPage, setCurrentPage, next, vali
             }
           }}
         >
-          Valider
-        </h3>
+          <h3 style={nextPage}>Valider</h3>
+        </div>
       )}
     </div>
   );

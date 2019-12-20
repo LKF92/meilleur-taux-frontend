@@ -26,6 +26,7 @@ export default function Step6({ globalState, setGlobalState, setCurrentPage }) {
     setGlobalState(copy);
   }, [valueOfProperty, costOfRenovation, notaryFees, totalBudget]);
 
+  // Get values from previous session from cookies (from App.js)
   useEffect(() => {
     if (globalState.estimatedValueOfProject) {
       setValueOfProperty(Number(globalState.estimatedValueOfProject.valueOfProperty));
@@ -70,14 +71,14 @@ export default function Step6({ globalState, setGlobalState, setCurrentPage }) {
         />
         {isWrong && <p style={errorMessage}>Seuls les nombres sont acceptés dans ce champs</p>}
         <InputRow
-          text="Montant estimé des travaux ?"
+          text="Montant estimé des travaux ?*"
           value={costOfRenovation}
           setValue={setCostOfRenovation}
           after="€"
         />
         {isWrong && <p style={errorMessage}>Seuls les nombres sont acceptés dans ce champs</p>}
         <InputRow
-          text="Frais de notaire *"
+          text="Frais de notaire"
           value={notaryFees}
           style={{ backgroundColor: colors.grey }}
           readOnly={true}
