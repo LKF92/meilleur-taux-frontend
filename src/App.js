@@ -45,8 +45,11 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <Route exact path="/">
+        <Redirect to={"/demande-simulation/credit-immobilier/step" + currentPage} />
+      </Route>
       <Switch>
-        <Route exact path="/">
+        <Route path="/demande-simulation/credit-immobilier/step1">
           <Step1
             globalState={globalState}
             setGlobalState={setGlobalState}

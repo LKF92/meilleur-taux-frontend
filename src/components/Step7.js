@@ -37,10 +37,9 @@ export default function Step6({ globalState, setGlobalState, setCurrentPage }) {
         setGlobalState({ ...globalState, orderId: response.data.newEstimate.orderId });
         history.push("/demande-simulation/credit-immobilier/confirmation");
       } else {
-        alert("pb uesh");
+        alert("oops..something went wrong");
       }
     } catch (error) {
-      alert("coucou error");
       alert(error.message);
     }
   };

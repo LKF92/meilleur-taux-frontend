@@ -68,13 +68,13 @@ const previousPage = {
   textDecoration: "underline"
 };
 const nextPage = {
-  padding: 10,
+  padding: "0 10px",
   borderRadius: 5,
   backgroundColor: colors.orange,
   color: "white"
 };
 const link = {
-  padding: 10,
+  padding: "0 10px",
   borderRadius: 5,
   backgroundColor: colors.orange,
   color: "white",
@@ -83,7 +83,7 @@ const link = {
 };
 
 const notAllowed = {
-  padding: 10,
+  padding: "0 10px",
   borderRadius: 5,
   backgroundColor: colors.orange,
   color: "white",
