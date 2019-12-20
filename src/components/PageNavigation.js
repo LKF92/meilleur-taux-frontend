@@ -2,9 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import colors from "../colors";
 
-export default function PageNavigation({ currentPage, setCurrentPage, next }) {
-  console.log("PAGE : ", currentPage);
-
+export default function PageNavigation({ currentPage, setCurrentPage, next, validateEstimate }) {
   return (
     <div style={pageNavigation}>
       {currentPage > 1 ? (
@@ -39,20 +37,20 @@ export default function PageNavigation({ currentPage, setCurrentPage, next }) {
       )}
 
       {currentPage > 6 && (
-        <Link
-          to={"/demande-simulation/credit-immobilier/step" + (currentPage + 1)}
+        <h3
+          style={nextPage}
           style={next() ? link : notAllowed}
           onClick={e => {
             if (next()) {
-              setCurrentPage(currentPage + 1);
+              validateEstimate();
             } else {
               alert("vous devez accepter les CGV");
               e.preventDefault();
             }
           }}
         >
-          <h3 style={nextPage}>Valider</h3>
-        </Link>
+          Valider
+        </h3>
       )}
     </div>
   );

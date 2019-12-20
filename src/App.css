@@ -17,7 +17,6 @@ nav p {
 /********** PAGES **********/
 .container {
   padding: 0 30px;
-  height: 30vh;
 }
 .page-title {
   font-weight: bold;
@@ -33,6 +32,7 @@ nav p {
 
 .form-section {
   margin: 50px 0;
+  min-height: 10vh;
   width: 100%;
 }
 .first-input {
