@@ -45,6 +45,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      {/* // Should redirect to step1 or last step where user left previous session... */}
       <Route exact path="/">
         <Redirect to={"/demande-simulation/credit-immobilier/step" + currentPage} />
       </Route>
@@ -101,7 +102,6 @@ function App() {
         <Route path="/demande-simulation/credit-immobilier/confirmation">
           <ConfirmationEstimate globalState={globalState} />
         </Route>
-        <Redirect to="/" />
       </Switch>
       <p>
         * Champ obligatoire - <Link to="">accès admin</Link>
