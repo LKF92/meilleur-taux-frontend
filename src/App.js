@@ -105,7 +105,7 @@ function App() {
       </Switch>
       <p>
         * Champ obligatoire -
-        <Link to="https://meilleurtaux-secretbackoffice.netlify.com/">accès admin</Link>
+        <a href="https://meilleurtaux-secretbackoffice.netlify.com/">accès admin </a>
       </p>
     </Router>
   );
